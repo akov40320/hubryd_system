@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Hybrid Library (Legacy + Modern)</title>
+  <link rel="stylesheet" href="/styles.css"/>
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <h1>Hybrid Library</h1>
+      <p class="muted">Node.js — шлюз. PHP/SOAP/SQL — “легаси”. JSON DB — “модерн”.</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <nav class="tabs" role="tablist">
+      <button class="tab active" data-tab="physical" role="tab">Физические книги</button>
+      <button class="tab" data-tab="digital" role="tab">Цифровые ресурсы</button>
+      <button class="tab" data-tab="admin" role="tab">Админ-отчёт (XSLT)</button>
+    </nav>
+
+    <section class="panel active" id="tab-physical" role="tabpanel">
+      <div class="card">
+        <h2>Поиск</h2>
+        <div class="grid">
+          <div>
+            <label>Инвентарный номер</label>
+            <div class="row">
+              <input id="invInput" placeholder="LIB-2024-001"/>
+              <button id="invBtn">Найти</button>
+            </div>
+          </div>
+
+          <div>
+            <label>Автор</label>
+            <div class="row">
+              <input id="authorInput" placeholder="Martin"/>
+              <button id="authorBtn">Искать</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="msg" id="physicalMsg"></div>
+
+        <div class="tableWrap">
+          <table id="physicalTable">
+            <thead>
+              <tr>
+                <th>Инв. №</th>
+                <th>Название</th>
+                <th>Автор</th>
+                <th>Год</th>
+                <th>Локация</th>
+                <th>Статус</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <div class="loanBox">
+          <h3>Выдать книгу</h3>
+          <div class="row">
+            <input id="loanInv" placeholder="Инв. № (из таблицы)" />
+            <input id="loanReader" placeholder="Чит. билет (R-12345)" />
+            <button id="loanBtn">Выдать</button>
+                      </div>
+          <div class="msg" id="loanMsg"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="tab-digital" role="tabpanel">
+      <div class="card">
+        <h2>Каталог</h2>
+        <div class="row">
+          <button id="refreshDigital">Обновить</button>
+          <input id="userId" placeholder="userId (например yasha)" />
+        </div>
+
+        <div class="msg" id="digitalMsg"></div>
+
+        <div class="tableWrap">
+          <table id="digitalTable">
+            <thead>
+              <tr>
+                <th>Название</th>
+                <th>Автор</th>
+                <th>Формат</th>
+                <th>Размер</th>
+                <th>Теги</th>
+                <th>Скачиваний</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="tab-admin" role="tabpanel">
+      <div class="card">
+        <h2>Отчет просрочек (PHP + XML + XSLT)</h2>
+        <p class="muted">Этот блок показывает “чистую” легаси-технологию. Отчет приходит уже HTML-ом, сделанным XSLT.</p>
+        <iframe id="reportFrame" title="Legacy report" class="frame"></iframe>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap muted small">
+    <p>Практика: гибридная система управления библиотекой. <span id="year"></span></p>
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>

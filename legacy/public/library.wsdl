@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions
+  xmlns="http://schemas.xmlsoap.org/wsdl/"
+  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:tns="urn:LegacyLibraryService"
+  targetNamespace="urn:LegacyLibraryService"
+  name="LegacyLibraryService">
+
+  <types>
+    <xsd:schema targetNamespace="urn:LegacyLibraryService" elementFormDefault="qualified">
+      <xsd:complexType name="LoanResult">
+        <xsd:all>
+          <xsd:element name="success" type="xsd:boolean"/>
+          <xsd:element name="message" type="xsd:string"/>
+          <xsd:element name="loan_id" type="xsd:int" nillable="true"/>
+          <xsd:element name="inventory_number" type="xsd:string"/>
+          <xsd:element name="date_taken" type="xsd:string" nillable="true"/>
+        </xsd:all>
+      </xsd:complexType>
+
+      <xsd:complexType name="ReturnResult">
+        <xsd:all>
+          <xsd:element name="success" type="xsd:boolean"/>
+          <xsd:element name="message" type="xsd:string"/>
+          <xsd:element name="inventory_number" type="xsd:string"/>
+          <xsd:element name="date_returned" type="xsd:string" nillable="true"/>
+        </xsd:all>
+      </xsd:complexType>
+    </xsd:schema>
+  </types>
+
+  <!-- Messages -->
+  <message name="getBookByInventoryRequest">
+    <part name="inventory_number" type="xsd:string"/>
+  </message>
+  <message name="getBookByInventoryResponse">
+    <part name="return" type="xsd:string"/>
+  </message>
+
+  <message name="searchBooksByAuthorRequest">
+    <part name="author_name" type="xsd:string"/>
+  </message>
+  <message name="searchBooksByAuthorResponse">
+    <part name="return" type="xsd:string"/>
+  </message>
+
+  <message name="registerLoanRequest">
+    <part name="inventory_number" type="xsd:string"/>
+    <part name="reader_card" type="xsd:string"/>
+  </message>
+  <message name="registerLoanResponse">
+    <part name="return" type="tns:LoanResult"/>
+  </message>
+
+  <message name="returnBookRequest">
+    <part name="inventory_number" type="xsd:string"/>
+  </message>
+  <message name="returnBookResponse">
+    <part name="return" type="tns:ReturnResult"/>
+  </message>
+
+  <!-- PortType -->
+  <portType name="LegacyLibraryPortType">
+    <operation name="getBookByInventory">
+      <input message="tns:getBookByInventoryRequest"/>
+      <output message="tns:getBookByInventoryResponse"/>
+    </operation>
+
+    <operation name="searchBooksByAuthor">
+      <input message="tns:searchBooksByAuthorRequest"/>
+      <output message="tns:searchBooksByAuthorResponse"/>
+    </operation>
+
+    <operation name="registerLoan">
+      <input message="tns:registerLoanRequest"/>
+      <output message="tns:registerLoanResponse"/>
+    </operation>
+
+    <operation name="returnBook">
+      <input message="tns:returnBookRequest"/>
+      <output message="tns:returnBookResponse"/>
+    </operation>
+  </portType>
+
+  <!-- Binding -->
+  <binding name="LegacyLibraryBinding" type="tns:LegacyLibraryPortType">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="getBookByInventory">
+      <soap:operation soapAction="urn:LegacyLibraryService#getBookByInventory"/>
+      <input><soap:body use="encoded" namespace="urn:LegacyLibraryService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+      <output><soap:body use="encoded" namespace="urn:LegacyLibraryService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+    </operation>
+    <operation name="searchBooksByAuthor">
+      <soap:operation soapAction="urn:LegacyLibraryService#searchBooksByAuthor"/>
+      <input><soap:body use="encoded" namespace="urn:LegacyLibraryService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+      <output><soap:body use="encoded" namespace="urn:LegacyLibraryService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+    </operation>
+    <operation name="registerLoan">
+      <soap:operation soapAction="urn:LegacyLibraryService#registerLoan"/>
+      <input><soap:body use="encoded" namespace="urn:LegacyLibraryService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+      <output><soap:body use="encoded" namespace="urn:LegacyLibraryService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+    </operation>
+    <operation name="returnBook">
+      <soap:operation soapAction="urn:LegacyLibraryService#returnBook"/>
+      <input><soap:body use="encoded" namespace="urn:LegacyLibraryService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+      <output><soap:body use="encoded" namespace="urn:LegacyLibraryService" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+    </operation>
+  </binding>
+
+  <service name="LegacyLibraryService">
+    <documentation>Legacy physical library SOAP service</documentation>
+    <port name="LegacyLibraryPort" binding="tns:LegacyLibraryBinding">
+      <soap:address location="http://127.0.0.1:8080/soap-server.php"/>
+    </port>
+  </service>
+</definitions>
