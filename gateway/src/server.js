@@ -14,17 +14,17 @@ const app = express();
 app.use(cors());
 app.use(express.json({ limit: "1mb" }));
 
-// Serve frontend
+  // Раздаём фронтенд (статические файлы)
 app.use(express.static(path.join(__dirname, "../public")));
 
 app.use("/api", buildRouter());
 
-// Health
+  // Проверка работоспособности (healthcheck)
 app.get("/healthz", (_req, res) => res.json({ ok: true }));
 
-// Startup checks
+  // Проверки при старте
 async function startup() {
-  // Ensure digital db exists
+    // Гарантируем, что цифровая БД существует
   const digitalDb = makeDigitalDb();
   await digitalDb.read();
   if (!digitalDb.data) {
@@ -32,10 +32,10 @@ async function startup() {
     await digitalDb.write();
   }
 
-  // Check SOAP availability
+    // Проверяем доступность SOAP
   try {
     const client = await createLegacyClient(config.legacyWsdlUrl);
-    // Test call to ensure SOAP is reachable
+      // Тестовый вызов, чтобы убедиться, что SOAP доступен
     await client.getBookByInventoryAsync("LIB-2024-001");
     console.log("[startup] Legacy SOAP OK");
   } catch (e) {

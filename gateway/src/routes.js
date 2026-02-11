@@ -7,7 +7,7 @@ export function buildRouter() {
   const router = express.Router();
   const digitalDb = makeDigitalDb();
 
-  // Lazy-init SOAP client (also tested at startup from server.js)
+    // Ленивое создание SOAP-клиента (также проверяется при старте в server.js)
   let legacyClient = null;
   async function getLegacy() {
     if (!legacyClient) legacyClient = await createLegacyClient(config.legacyWsdlUrl);
@@ -95,7 +95,7 @@ export function buildRouter() {
 
     await digitalDb.write();
 
-    // Demo link
+      // Демо-ссылка
     const fakeUrl = `/files/${encodeURIComponent(resourceId)}`;
     return res.json({ ok: true, resource, downloadUrl: fakeUrl });
   });

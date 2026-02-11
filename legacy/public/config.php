@@ -2,13 +2,13 @@
 declare(strict_types=1);
 
 return [
-  // SQLite file for the legacy module.
-  // It will be created on first init (see init_db.php).
+    // Файл SQLite для легаси-модуля.
+    // Будет создан при первой инициализации (см. init_db.php).
   'db_path' => __DIR__ . '/../data/library.sqlite',
 
-  // WSDL definition for the SOAP service
+    // WSDL-описание SOAP-сервиса
   'wsdl_path' => __DIR__ . '/library.wsdl',
 
-  // SOAP service namespace (must match WSDL)
+    // Пространство имён SOAP-сервиса (должно совпадать с WSDL)
   'service_namespace' => 'urn:LegacyLibraryService',
 ];

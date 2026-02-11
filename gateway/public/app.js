@@ -194,8 +194,8 @@ async function download(resourceId) {
 }
 
 function initAdminFrame() {
-  // Backend container "legacy" is reachable from gateway container,
-  // When running locally: legacy is on http://localhost:8080
+  // При локальном запуске легаси доступен отдельно (см. URL ниже).
+  // При локальном запуске: legacy находится на http://127.0.0.1:8080
   $("#reportFrame").src = "http://127.0.0.1:8080/report.php?type=overdue";
 }
 
@@ -210,7 +210,7 @@ function boot() {
 
   $("#refreshDigital").addEventListener("click", loadDigital);
 
-  // First load
+    // Первая загрузка
   $("#invInput").value = "LIB-2024-001";
   searchByInventory();
   loadDigital();

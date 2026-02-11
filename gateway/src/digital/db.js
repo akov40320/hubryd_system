@@ -9,7 +9,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export function makeDigitalDb() {
   const file = path.join(__dirname, "../../data/digital.json");
 
-  // Ensure directory exists (TinyDB-style JSON file storage)
+    // Гарантируем наличие каталога (хранилище JSON-файла в стиле TinyDB)
   fs.mkdirSync(path.dirname(file), { recursive: true });
 
   const adapter = new JSONFile(file);

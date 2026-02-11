@@ -18,6 +18,6 @@ $server->setClass(LegacyLibraryService::class);
 try {
   $server->handle();
 } catch (Throwable $e) {
-  // Always return SOAP Fault
+    // Всегда возвращаем SOAP Fault (ошибку SOAP)
   $server->fault('Server', $e->getMessage());
 }

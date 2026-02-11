@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS physical_loans (
 );
 ");
 
-# Seed if empty
+# Заполнение тестовыми данными, если база пустая
 $count = (int)$pdo->query("SELECT COUNT(*) FROM physical_books")->fetchColumn();
 if ($count > 0) {
   echo "DB already seeded: {$count} books\n";
@@ -69,7 +69,7 @@ foreach ($books as $b) {
   ]);
 }
 
-# Create a couple of overdue loans (date_taken older, not returned)
+# Создаём пару просроченных выдач (date_taken в прошлом, возврата нет)
 $bookId1 = (int)$pdo->query("SELECT id FROM physical_books WHERE inventory_number='LIB-2024-001'")->fetchColumn();
 $bookId2 = (int)$pdo->query("SELECT id FROM physical_books WHERE inventory_number='LIB-2024-009'")->fetchColumn();
 $pdo->prepare("INSERT INTO physical_loans(book_id, reader_card, date_taken, date_returned) VALUES (?,?,?,NULL)")

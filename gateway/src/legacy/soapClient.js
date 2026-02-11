@@ -7,7 +7,7 @@ const xmlParser = new XMLParser({
 });
 
 export async function createLegacyClient(wsdlUrl) {
-  // `soap` supports WSDL url directly.
+    // Пакет `soap` умеет работать напрямую с URL WSDL.
   return soap.createClientAsync(wsdlUrl, {
     endpoint: wsdlUrl.replace(/\/library\.wsdl$/i, "/soap-server.php"),
     wsdl_options: { timeout: 5000 },
@@ -16,7 +16,7 @@ export async function createLegacyClient(wsdlUrl) {
 
 export function parseBookInfoXml(xml) {
   const obj = xmlParser.parse(xml);
-  // { BookInfo: { success: 'true', book: {...} } }
+    // Пример структуры распарсенного XML: { BookInfo: { success: 'true', book: {...} } }
   const root = obj?.BookInfo;
   if (!root) return { success: false, message: "Bad XML", book: null };
   const success = String(root.success) === "true";
